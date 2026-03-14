@@ -33,18 +33,21 @@ video{
     object-fit:contain;
 }
 
-.comment{
-    position:absolute;
-    bottom:40px;
-    left:50px;
-    max-width:600px;
-    background:rgba(0,0,0,0.6);
-    padding:20px;
-    border-radius:12px;
-    line-height:1.6;
-    font-weight:300;
-    font-size:18px;
+.comment {
+    position: absolute;
+    top: 80px;
+    left: 30px;          /* ancré à gauche */
+    width: 300px;
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 12px;
+    line-height: 1.6;
+    font-weight: 300;
+    font-size: 16px;
     white-space: pre-line;
+    box-sizing: border-box;
 }
 
 .back{
