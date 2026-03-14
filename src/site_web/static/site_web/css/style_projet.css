@@ -1,0 +1,89 @@
+/* ======================
+RESET & BODY
+===================== */
+body{
+    margin:0;
+    font-family:'Montserrat', sans-serif;
+    background:black;
+    color:white;
+}
+
+/* ======================
+GRID PRINCIPALE
+===================== */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr); /* desktop 3 colonnes */
+    gap:20px; /* espace horizontal + vertical */
+    padding:20px;
+    min-height:100vh;
+    box-sizing:border-box;
+}
+
+/* ======================
+CARDS (RECTANGLES)
+===================== */
+.card{
+    position:relative;
+    width:100%;
+    height:400px;
+    overflow:hidden;
+    cursor:pointer;
+    border-radius:12px; /* coins arrondis */
+    display:block;
+    transition:transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover{
+    transform:scale(1.02);
+    box-shadow:0 10px 30px rgba(0,0,0,0.6);
+}
+
+/* zoom vidéo / image */
+.card:hover video,
+.card:hover img{
+    transform:scale(1.05);
+}
+
+.card video,
+.card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:transform 0.5s;
+    display:block;
+}
+
+/* ======================
+PHOTOS PREVIEW
+===================== */
+.card.photos img{
+    object-fit:cover;
+}
+
+/* ======================
+RESPONSIVE
+===================== */
+@media(max-width:1200px){
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+    .card{
+        height:350px;
+    }
+}
+
+@media(max-width:800px){
+    .grid{
+        grid-template-columns:1fr;
+    }
+    .card{
+        height:300px;
+    }
+}
+
+@media(max-width:500px){
+    .card{
+        height:250px;
+    }
+}

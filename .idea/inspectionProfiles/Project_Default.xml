@@ -1,0 +1,37 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <list>
+          <option value="buildozer" />
+          <option value="certifi" />
+          <option value="charset-normalizer" />
+          <option value="Cython" />
+          <option value="distlib" />
+          <option value="docutils" />
+          <option value="filelock" />
+          <option value="filetype" />
+          <option value="idna" />
+          <option value="Kivy" />
+          <option value="kivy-deps.glew" />
+          <option value="Kivy-Garden" />
+          <option value="kivy_deps.angle" />
+          <option value="kivy_deps.sdl2" />
+          <option value="pexpect" />
+          <option value="platformdirs" />
+          <option value="ptyprocess" />
+          <option value="Pygments" />
+          <option value="pypiwin32" />
+          <option value="pywin32" />
+          <option value="requests" />
+          <option value="sh" />
+          <option value="typing_extensions" />
+          <option value="urllib3" />
+          <option value="virtualenv" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

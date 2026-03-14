@@ -1,0 +1,24 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>À propos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'site_web/css/style_apropos.css' %}">
+</head>
+<body>
+
+<section class="about">
+    <div class="text">
+        <p id="typing"></p>
+    </div>
+    <div class="photo">
+        <img src="{% static 'site_web/images/event1.jpg' %}" alt="photo">
+    </div>
+</section>
+
+<script src="{% static 'site_web/js/script_apropos.js' %}"></script>
+
+</body>
+</html>

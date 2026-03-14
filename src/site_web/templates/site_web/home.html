@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<title>Portfolio_videos_photos</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{% static 'site_web/css/style_home.css' %}">
+</head>
+
+<body>
+
+<!-- VIDEO WRAPPER -->
+<div class="video-wrapper">
+    <video autoplay muted loop id="video-bg">
+        <source src="{% static 'site_web/videos/Motion_Montre_2.mp4' %}" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+</div>
+
+<!-- HEADER -->
+<header>
+    <div class="name">
+        Nom <br> Prenom
+    </div>
+
+    <nav>
+        <a href="{% url 'projets' %}" target="_blank">Projets</a>
+        <a href="{% url 'apropos' %}" target="_blank">A propos</a>
+        <a href="{% url 'contact' %}" target="_blank">Contact</a>
+    </nav>
+</header>
+
+<div class="line"></div>
+
+<!-- HERO NORMAL -->
+<section class="hero">
+    <div class="left">
+        <h3>Monteuse & Photographe</h3>
+    </div>
+
+    <div class="center">
+        <h1>Nom<br>Prenom</h1>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about hidden">
+    <div class="text">
+        <p id="typing"></p>
+    </div>
+
+    <div class="photo">
+        <img src="{% static 'site_web/images/event1.jpg' %}">
+    </div>
+</section>
+
+<script src="{% static 'site_web/js/script_home.js' %}"></script>
+
+</body>
+</html>

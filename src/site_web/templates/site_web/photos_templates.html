@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Photos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'site_web/css/style_photos.css' %}">
+</head>
+<body>
+
+<div class="photo-container">
+    <img id="slide" src="{% static photos.0 %}">
+    <a href="{% url 'projets' %}" class="back">← Retour aux projets</a>
+</div>
+
+<script>
+const photos = [
+    {% for photo in photos %}
+        "{% static photo %}"{% if not forloop.last %},{% endif %}
+    {% endfor %}
+];
+
+let i = 0;
+setInterval(()=>{
+    i++;
+    if(i >= photos.length){ i = 0; }
+    document.getElementById("slide").src = photos[i];
+}, 2000);
+</script>
+
+</body>
+</html>

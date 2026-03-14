@@ -1,0 +1,128 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'site_web/css/style_contact.css' %}" />
+</head>
+<body>
+
+<div class="card">
+  <div class="header">
+    <span class="label-tag">✦ Écrivez-nous</span>
+    <h1>Prenons <em>contact</em></h1>
+    <p class="subtitle">Une question, un projet, une idée ?<br>Nous vous répondons sous 24h.</p>
+  </div>
+
+  <!-- ⚠️  Remplacez YOUR_FORM_ID par votre ID Formspree -->
+  <form id="contactForm" action="https://formspree.io/f/mkoqokoj" method="POST" novalidate>
+    {% csrf_token %}
+
+    <div class="row">
+      <div class="field">
+        <label for="name">Nom</label>
+        <input type="text" id="name" name="name" placeholder="Jean Dupont" required />
+      </div>
+      <div class="field">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="jean@exemple.fr" required />
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="subject">Sujet</label>
+      <input type="text" id="subject" name="subject" placeholder="En quoi puis-je vous aider ?" />
+    </div>
+
+    <div class="field">
+      <label for="message">Message</label>
+      <textarea id="message" name="message" placeholder="Décrivez votre demande…" required></textarea>
+    </div>
+
+    <button type="submit" class="btn" id="submitBtn">
+      <span class="btn-text">Envoyer le message</span>
+      <div class="spinner"></div>
+    </button>
+
+    <div class="notif" id="notif" role="alert">
+      <span class="notif-icon" id="notifIcon"></span>
+      <span id="notifText"></span>
+    </div>
+  </form>
+</div>
+
+<script>
+  const form      = document.getElementById('contactForm');
+  const btn       = document.getElementById('submitBtn');
+  const notif     = document.getElementById('notif');
+  const notifText = document.getElementById('notifText');
+  const notifIcon = document.getElementById('notifIcon');
+
+  function showNotif(type, message) {
+    notif.className = 'notif';
+    notif.style.display = 'none';
+    notif.offsetHeight; // reflow pour relancer l'animation
+
+    notifIcon.textContent = type === 'success' ? '✓' : '✕';
+    notifText.textContent = message;
+    notif.classList.add(type);
+    notif.style.display = 'flex';
+    notif.offsetHeight;
+    notif.classList.add('show');
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name    = form.name.value.trim();
+    const email   = form.email.value.trim();
+    const message = form.message.value.trim();
+
+    if (!name || !email || !message) {
+      showNotif('error', 'Veuillez remplir les champs obligatoires (nom, e-mail, message).');
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      showNotif('error', 'Adresse e-mail invalide.');
+      return;
+    }
+
+    btn.disabled = true;
+    btn.classList.add('loading');
+
+    try {
+      const data = new FormData(form);
+      data.delete('csrfmiddlewaretoken'); // Formspree n'en a pas besoin
+
+      const res = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      });
+
+      if (res.ok) {
+        showNotif('success', 'Message envoyé avec succès ! Nous vous répondrons très prochainement.');
+        form.reset();
+      } else {
+        const json = await res.json().catch(() => ({}));
+        const errMsg = json?.errors?.map(e => e.message).join(', ')
+                    || 'Une erreur est survenue. Veuillez réessayer.';
+        showNotif('error', errMsg);
+      }
+    } catch {
+      showNotif('error', "Impossible d'envoyer le message. Vérifiez votre connexion.");
+    } finally {
+      btn.disabled = false;
+      btn.classList.remove('loading');
+    }
+  });
+</script>
+
+</body>
+</html>
+
+

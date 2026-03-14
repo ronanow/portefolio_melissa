@@ -1,0 +1,65 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<title>Projets_photos_videos</title>
+
+<!-- Montserrat pour le texte -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+
+<!-- CSS -->
+<link rel="stylesheet" href="{% static 'site_web/css/style_projet.css' %}">
+</head>
+
+<body>
+
+<div class="grid">
+
+  <!-- VIDEO 1 -->
+  <a href="{% url 'video_montre' %}" class="card">
+    <video autoplay muted loop preload="metadata">
+      <source src="{% static 'site_web/videos/Motion_Montre_2.mp4' %}" type="video/mp4">
+    </video>
+  </a>
+
+  <!-- VIDEO 2 -->
+  <a href="{% url 'video_festival' %}" class="card">
+    <video autoplay muted loop preload="metadata">
+      <source src="{% static 'site_web/videos/festival.mp4' %}" type="video/mp4">
+    </video>
+  </a>
+
+  <!-- VIDEO 3 -->
+  <a href="{% url 'video_pub' %}" class="card">
+    <video autoplay muted loop preload="metadata">
+      <source src="{% static 'site_web/videos/court.mp4' %}" type="video/mp4">
+    </video>
+  </a>
+
+  <!-- VIDEO 4 -->
+  <a href="{% url 'video_motion' %}" class="card">
+    <video autoplay muted loop preload="metadata">
+      <source src="{% static 'site_web/videos/motion.mp4' %}" type="video/mp4">
+    </video>
+  </a>
+
+  <!-- VIDEO 5 -->
+  <a href="{% url 'video_suze' %}" class="card">
+    <video autoplay muted loop preload="metadata">
+      <source src="{% static 'site_web/videos/suze.mp4' %}" type="video/mp4">
+    </video>
+  </a>
+
+  <!-- PHOTOS -->
+  <a href="{% url 'photos_event' %}" class="card photos">
+    <img id="preview-photo" src="{% static 'site_web/images/event1.jpg' %}">
+  </a>
+
+</div>
+
+<!-- JS -->
+<script src="{% static 'site_web/js/script_projet.js' %}"></script>
+</body>
+</html>

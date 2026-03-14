@@ -1,0 +1,68 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+
+.about {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 60px;
+    padding: 80px;
+
+    background: linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)),
+                url("../images/event9_flou.png") center/cover no-repeat fixed;
+    color: white;
+}
+
+.text {
+    flex: 2;
+    font-size: 22px;
+    line-height: 1.8;
+    letter-spacing: 0.5px;
+    color: white;
+}
+
+#typing::after {
+    content: "|";
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%   { opacity: 1; }
+    50%  { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.photo {
+    flex: 1;
+    position: relative;
+}
+
+.photo img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 14px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+@media (max-width: 768px) {
+    .about {
+        flex-direction: column;
+        padding: 40px 20px;
+        gap: 40px;
+    }
+    .text {
+        font-size: 18px;
+    }
+    .photo {
+        width: 100%;
+    }
+}

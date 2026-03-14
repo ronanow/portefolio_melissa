@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Vidéo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'site_web/css/style_video.css' %}">
+</head>
+<body>
+
+<div class="video-container">
+    <!-- Vidéo plein écran -->
+    <video id="fullscreenVideo" controls autoplay>
+        <source src="{% static video_src %}" type="video/mp4">
+    </video>
+
+    <!-- Commentaire de la vidéo -->
+    <div class="comment">{{ comment| safe }}</div>
+
+    <!-- Bouton retour -->
+    <a href="{% url 'projets' %}" class="back">← Retour aux projets</a>
+</div>
+
+</body>
+</html>
