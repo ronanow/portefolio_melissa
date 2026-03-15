@@ -58,7 +58,6 @@ const previewPhotos=[
 "/static/site_web/images/event8.jpg",
 "/static/site_web/images/event9.jpg",
 "/static/site_web/images/event5.jpg",
-"/static/site_web/images/event6.jpg",
 "/static/site_web/images/event7.jpg",
 "/static/site_web/images/event10.jpg"
 

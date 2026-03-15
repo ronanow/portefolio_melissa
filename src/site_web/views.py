@@ -87,7 +87,6 @@ def photos_event(request):
             'site_web/images/event8.jpg',
             'site_web/images/event9.jpg',
             'site_web/images/event5.jpg',
-            'site_web/images/event6.jpg',
             'site_web/images/event7.jpg',
             'site_web/images/event10.jpg',
         ]
@@ -102,11 +101,10 @@ def galerie(request):
             {'src': 'site_web/images/event3.jpg',  'title': 'Photo 3'},
             {'src': 'site_web/images/event4.jpg',  'title': 'Photo 4'},
             {'src': 'site_web/images/event5.jpg',  'title': 'Photo 5'},
-            {'src': 'site_web/images/event6.jpg',  'title': 'Photo 6'},
-            {'src': 'site_web/images/event7.jpg',  'title': 'Photo 7'},
-            {'src': 'site_web/images/event8.jpg',  'title': 'Photo 8'},
-            {'src': 'site_web/images/event9.jpg',  'title': 'Photo 9'},
-            {'src': 'site_web/images/event10.jpg', 'title': 'Photo 10'},
+            {'src': 'site_web/images/event7.jpg',  'title': 'Photo 6'},
+            {'src': 'site_web/images/event8.jpg',  'title': 'Photo 7'},
+            {'src': 'site_web/images/event9.jpg',  'title': 'Photo 8'},
+            {'src': 'site_web/images/event10.jpg', 'title': 'Photo 9'},
         ]
     }
     return render(request, 'site_web/carousel_courbe.html', context)
