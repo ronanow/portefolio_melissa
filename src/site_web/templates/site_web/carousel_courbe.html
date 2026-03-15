@@ -1,0 +1,396 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Galerie</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@300;400&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:#f4f3ef;
+  font-family:'Syne',sans-serif;
+  min-height:100vh;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  overflow:hidden;
+  -webkit-user-select:none;user-select:none;
+  cursor:grab;
+  touch-action:none;
+}
+body.drag{cursor:grabbing}
+h1{font-size:clamp(1.3rem,3.5vw,2rem);font-weight:300;letter-spacing:.3em;text-transform:uppercase;color:#111;margin-bottom:.25rem}
+.sub{font-size:.6rem;letter-spacing:.45em;color:#aaa;text-transform:uppercase;margin-bottom:2.8rem}
+.scene{
+  perspective:1100px;
+  perspective-origin:50% 50%;
+  width:100vw;height:380px;
+  position:relative;
+}
+.belt{
+  position:absolute;top:0;left:0;
+  width:100%;height:100%;
+  transform-style:preserve-3d;
+}
+.card{
+  position:absolute;
+  top:50%;left:50%;
+  width:220px;height:300px;
+  margin:-150px 0 0 -110px;
+  border-radius:10px;
+  overflow:hidden;
+  will-change:transform,opacity;
+}
+.card img{width:100%;height:100%;object-fit:cover;display:block;pointer-events:none}
+.card .veil{position:absolute;inset:0;border-radius:10px;pointer-events:none}
+.card .lbl{
+  position:absolute;bottom:14px;left:14px;right:14px;
+  color:#fff;font-size:.78rem;letter-spacing:.07em;
+  opacity:0;z-index:3;
+  text-shadow:0 1px 8px rgba(0,0,0,.8);
+  transition:opacity .2s;
+}
+.card.front .lbl{opacity:1}
+.card.front{box-shadow:0 24px 60px rgba(0,0,0,.28)}
+.card.front::before{
+  content:'';
+  position:absolute;inset:0;
+  border-radius:10px;
+  border:2px solid rgba(255,255,255,0);
+  transition:border-color .25s;
+  z-index:4;pointer-events:none;
+}
+.card.front:hover::before{
+  border-color:rgba(255,255,255,.35);
+  cursor:pointer;
+}
+.arr{
+  position:absolute;top:50%;transform:translateY(-50%);
+  z-index:20;background:rgba(255,255,255,.72);
+  backdrop-filter:blur(4px);
+  border:1px solid rgba(0,0,0,.1);
+  color:#333;width:38px;height:38px;border-radius:50%;
+  font-size:.95rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s;pointer-events:all;
+}
+.arr:hover{background:#fff}
+.arr.l{left:clamp(10px,3vw,48px)}
+.arr.r{right:clamp(10px,3vw,48px)}
+.dots{margin-top:1.6rem;display:flex;gap:7px;flex-wrap:wrap;justify-content:center;max-width:320px}
+.dot{width:5px;height:5px;border-radius:50%;background:#ccc;cursor:pointer;transition:background .3s,transform .3s;flex-shrink:0}
+.dot.on{background:#111;transform:scale(1.5)}
+.hint{margin-top:1.1rem;font-size:.58rem;letter-spacing:.35em;color:#bbb;text-transform:uppercase}
+.lb{
+  display:none;
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(0,0,0,0);
+  align-items:center;justify-content:center;
+  padding:2rem;cursor:default;
+}
+.lb.on{display:flex;animation:lbFadeIn .3s ease forwards}
+@keyframes lbFadeIn{
+  from{background:rgba(0,0,0,0)}
+  to{background:rgba(0,0,0,.92)}
+}
+.lb-backdrop{
+  position:absolute;inset:0;
+  backdrop-filter:blur(0px);
+  animation:lbBlur .35s ease forwards;
+}
+@keyframes lbBlur{
+  from{backdrop-filter:blur(0px)}
+  to{backdrop-filter:blur(14px)}
+}
+.lb-inner{
+  position:relative;
+  max-width:880px;width:100%;
+  z-index:1;
+  animation:lbPop .38s cubic-bezier(.34,1.56,.64,1) forwards;
+}
+@keyframes lbPop{
+  from{opacity:0;transform:scale(.78) translateY(20px)}
+  to{opacity:1;transform:scale(1) translateY(0)}
+}
+.lb-inner img{
+  width:100%;max-height:83vh;
+  object-fit:contain;border-radius:10px;display:block;
+  box-shadow:0 40px 100px rgba(0,0,0,.6);
+}
+.lb-ttl{
+  text-align:center;margin-top:1rem;
+  color:#c9a050;font-size:.95rem;
+  letter-spacing:.18em;text-transform:uppercase;
+}
+.lb-x{
+  position:absolute;top:-16px;right:-16px;
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid #c9a050;background:#111;color:#c9a050;
+  font-size:1rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s,transform .2s;
+  z-index:2;
+}
+.lb-x:hover{background:#c9a050;color:#111;transform:scale(1.1) rotate(90deg)}
+.lb-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.2);
+  color:#fff;width:42px;height:42px;border-radius:50%;
+  font-size:1rem;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s;z-index:2;
+}
+.lb-nav:hover{background:rgba(255,255,255,.25)}
+.lb-nav.l{left:-56px}
+.lb-nav.r{right:-56px}
+@media(max-width:700px){
+  .lb-nav.l{left:4px}
+  .lb-nav.r{right:4px}
+}
+</style>
+</head>
+<body>
+
+<h1>Galerie</h1>
+<p class="sub" id="subline">Collection</p>
+
+<div class="scene" id="scene">
+  <div class="belt" id="belt"></div>
+  <button class="arr l" id="btnL">&#8592;</button>
+  <button class="arr r" id="btnR">&#8594;</button>
+</div>
+
+<div class="dots" id="dots"></div>
+<p class="hint">&#8592;&nbsp; drag &middot; swipe &middot; clic &nbsp;&#8594;</p>
+
+<div class="lb" id="lb">
+  <div class="lb-backdrop" id="lbBg"></div>
+  <div class="lb-inner" id="lbInner">
+    <button class="lb-x" id="lbX">&#x2715;</button>
+    <button class="lb-nav l" id="lbPrev">&#8592;</button>
+    <button class="lb-nav r" id="lbNext">&#8594;</button>
+    <img id="lbImg" src="" alt="">
+    <p class="lb-ttl" id="lbTtl"></p>
+  </div>
+</div>
+
+<script>
+const PHOTOS = [
+  {% for p in photos %}
+  { src:"{% static p.src %}", title:"{{ p.title }}" },
+  {% endfor %}
+];
+
+const N           = PHOTOS.length;
+const STEP        = (2 * Math.PI) / N;
+const RADIUS      = Math.max(520, Math.round(N * 260 / (2 * Math.PI)));
+const FRICTION    = 0.978;
+const SNAP_FORCE  = 0.018;
+const SNAP_THRESH = 0.0004;
+
+document.getElementById('subline').textContent = N + ' photos · Collection';
+
+let angle    = 0;
+let vel      = 0;
+let rafId    = null;
+let frontIdx = 0;
+
+let pDown    = false;
+let pMoved   = false;
+let pStartX  = 0;
+let pStartAng= 0;
+let pLastX   = 0;
+let pLastT   = 0;
+let pSmoothV = 0;
+
+const belt   = document.getElementById('belt');
+const dotsEl = document.getElementById('dots');
+
+const items = PHOTOS.map((p, i) => {
+  const el = document.createElement('div');
+  el.className = 'card';
+  el.innerHTML =
+    '<img src="' + p.src + '" alt="' + p.title + '" loading="lazy">' +
+    '<div class="veil"></div>' +
+    '<span class="lbl">' + p.title + '</span>';
+  belt.appendChild(el);
+
+  const dot = document.createElement('div');
+  dot.className = 'dot';
+  dot.addEventListener('click', function(){ snapTo(i); });
+  dotsEl.appendChild(dot);
+
+  return { el: el, veil: el.querySelector('.veil'), dot: dot };
+});
+
+function render() {
+  var bestCos = -Infinity, newFront = 0;
+  items.forEach(function(item, i) {
+    var a    = i * STEP - angle;
+    var cos  = Math.cos(a);
+    var sin  = Math.sin(a);
+    if (cos > bestCos) { bestCos = cos; newFront = i; }
+    var tx   = sin * RADIUS;
+    var tz   = (cos - 1) * RADIUS * 0.5;
+    var rotY = -a * (180 / Math.PI) * 0.88;
+    var depth= (cos + 1) / 2;
+    var scale= 0.52 + depth * 0.48;
+    var opa  = 0.18 + depth * 0.82;
+    var dark = (1 - depth) * 0.72;
+    item.el.style.transform = 'translateX(' + tx.toFixed(2) + 'px) translateZ(' + tz.toFixed(2) + 'px) rotateY(' + rotY.toFixed(3) + 'deg) scale(' + scale.toFixed(4) + ')';
+    item.el.style.zIndex    = Math.round(depth * 100);
+    item.el.style.opacity   = opa.toFixed(4);
+    item.veil.style.background = 'rgba(0,0,0,' + dark.toFixed(3) + ')';
+  });
+  if (newFront !== frontIdx) {
+    items[frontIdx].el.classList.remove('front');
+    items[frontIdx].dot.classList.remove('on');
+    frontIdx = newFront;
+    items[frontIdx].el.classList.add('front');
+    items[frontIdx].dot.classList.add('on');
+  }
+}
+
+function tick() {
+  if (!pDown) {
+    var snapA = Math.round(angle / STEP) * STEP;
+    var diff  = snapA - angle;
+    vel *= FRICTION;
+    vel += diff * SNAP_FORCE;
+    angle += vel;
+    if (Math.abs(vel) < SNAP_THRESH && Math.abs(diff) < SNAP_THRESH) {
+      angle = snapA; vel = 0;
+      render(); rafId = null; return;
+    }
+  }
+  render();
+  rafId = requestAnimationFrame(tick);
+}
+
+function ensureLoop() { if (!rafId) rafId = requestAnimationFrame(tick); }
+
+render();
+
+function onDown(x) {
+  pDown = true; pMoved = false;
+  pStartX = x; pStartAng = angle;
+  pLastX  = x; pLastT   = performance.now();
+  pSmoothV = 0; vel = 0;
+  document.body.classList.add('drag');
+  ensureLoop();
+}
+function onMove(x) {
+  if (!pDown) return;
+  var dx = x - pStartX;
+  if (Math.abs(dx) > 4) pMoved = true;
+  var now = performance.now();
+  var dt  = Math.max(1, now - pLastT);
+  pSmoothV = pSmoothV * 0.65 + ((x - pLastX) / dt) * 0.35;
+  pLastX = x; pLastT = now;
+  angle = pStartAng - dx / RADIUS;
+  render();
+}
+function onUp(x, target) {
+  if (!pDown) return;
+  pDown = false;
+  document.body.classList.remove('drag');
+  vel = -(pSmoothV / RADIUS) * 16.67;
+  if (!pMoved && target) {
+    var card = target.closest('.card');
+    if (card) {
+      var idx = items.findIndex(function(it){ return it.el === card; });
+      if (idx !== -1) {
+        if (idx === frontIdx) openLb(frontIdx);
+        else snapTo(idx);
+        return;
+      }
+    }
+  }
+  ensureLoop();
+}
+
+var scene = document.getElementById('scene');
+scene.addEventListener('mousedown',  function(e){ if (!e.target.closest('.arr')) onDown(e.clientX); });
+window.addEventListener('mousemove', function(e){ onMove(e.clientX); });
+window.addEventListener('mouseup',   function(e){ onUp(e.clientX, e.target); });
+
+scene.addEventListener('touchstart', function(e){
+  if (!e.target.closest('.arr')) onDown(e.touches[0].clientX);
+}, { passive: true });
+scene.addEventListener('touchmove', function(e){
+  onMove(e.touches[0].clientX);
+}, { passive: true });
+scene.addEventListener('touchend', function(e){
+  var t = e.changedTouches[0];
+  onUp(t.clientX, document.elementFromPoint(t.clientX, t.clientY));
+});
+
+document.getElementById('btnL').addEventListener('click', function(){ vel = -STEP * 0.28; ensureLoop(); });
+document.getElementById('btnR').addEventListener('click', function(){ vel =  STEP * 0.28; ensureLoop(); });
+
+document.addEventListener('keydown', function(e){
+  if (e.key === 'ArrowLeft')  { vel = -STEP * 0.28; ensureLoop(); }
+  if (e.key === 'ArrowRight') { vel =  STEP * 0.28; ensureLoop(); }
+  if (e.key === 'Escape') closeLb();
+});
+
+function snapTo(i) {
+  var target = i * STEP;
+  var diff   = target - angle;
+  var full   = 2 * Math.PI;
+  diff = ((diff % full) + full) % full;
+  if (diff > Math.PI) diff -= full;
+  vel = diff * 0.22;
+  ensureLoop();
+}
+
+var lb     = document.getElementById('lb');
+var lbImg  = document.getElementById('lbImg');
+var lbTtl  = document.getElementById('lbTtl');
+var lbIdx  = 0;
+var lbOpen = false;
+
+function openLb(idx) {
+  lbIdx = ((idx % N) + N) % N;
+  lbImg.src         = PHOTOS[lbIdx].src;
+  lbTtl.textContent = PHOTOS[lbIdx].title;
+  lb.classList.add('on');
+  lbOpen = true;
+  document.body.style.cursor = 'default';
+}
+function closeLb() {
+  lb.classList.remove('on');
+  lbOpen = false;
+  document.body.style.cursor = '';
+}
+function lbGo(dir) {
+  lbIdx = ((lbIdx + dir) % N + N) % N;
+  lbImg.style.opacity   = '0';
+  lbImg.style.transform = 'translateX(' + (dir > 0 ? 30 : -30) + 'px)';
+  lbImg.style.transition = 'opacity .15s ease, transform .15s ease';
+  setTimeout(function(){
+    lbImg.src         = PHOTOS[lbIdx].src;
+    lbTtl.textContent = PHOTOS[lbIdx].title;
+    lbImg.style.opacity   = '1';
+    lbImg.style.transform = 'translateX(0)';
+  }, 150);
+}
+
+document.getElementById('lbX').addEventListener('click', closeLb);
+document.getElementById('lbPrev').addEventListener('click', function(e){ e.stopPropagation(); lbGo(-1); });
+document.getElementById('lbNext').addEventListener('click', function(e){ e.stopPropagation(); lbGo(+1); });
+lb.addEventListener('click', function(e){
+  if (e.target === lb || e.target.id === 'lbBg') closeLb();
+});
+document.addEventListener('keydown', function(e){
+  if (!lbOpen) return;
+  if (e.key === 'Escape')     closeLb();
+  if (e.key === 'ArrowLeft')  lbGo(-1);
+  if (e.key === 'ArrowRight') lbGo(+1);
+});
+</script>
+</body>
+</html>
+

@@ -16,5 +16,5 @@ urlpatterns = [
     path('video/suze/', views.video_suze, name='video_suze'),
 
     # page photos
-    path('photos/event/', views.photos_event, name='photos_event'),
+    path('photos/event/', views.galerie, name="galerie"),
 ]

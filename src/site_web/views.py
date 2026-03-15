@@ -2,6 +2,7 @@
 from django.shortcuts import render, redirect
 from django.core.mail import send_mail
 from django.contrib import messages
+from .models import Photo
 
 # page d'accueil
 def index(request):
@@ -93,6 +94,22 @@ def photos_event(request):
     }
     return render(request, 'site_web/photos_templates.html', context)
 
+def galerie(request):
+    context = {
+        'photos': [
+            {'src': 'site_web/images/event1.jpg',  'title': 'Photo 1'},
+            {'src': 'site_web/images/event2.jpg',  'title': 'Photo 2'},
+            {'src': 'site_web/images/event3.jpg',  'title': 'Photo 3'},
+            {'src': 'site_web/images/event4.jpg',  'title': 'Photo 4'},
+            {'src': 'site_web/images/event5.jpg',  'title': 'Photo 5'},
+            {'src': 'site_web/images/event6.jpg',  'title': 'Photo 6'},
+            {'src': 'site_web/images/event7.jpg',  'title': 'Photo 7'},
+            {'src': 'site_web/images/event8.jpg',  'title': 'Photo 8'},
+            {'src': 'site_web/images/event9.jpg',  'title': 'Photo 9'},
+            {'src': 'site_web/images/event10.jpg', 'title': 'Photo 10'},
+        ]
+    }
+    return render(request, 'site_web/carousel_courbe.html', context)
 
 
 def contact(request):
