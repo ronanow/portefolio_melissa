@@ -17,4 +17,6 @@ urlpatterns = [
 
     # page photos
     path('photos/event/', views.galerie, name="galerie"),
+    # page compta visitors
+    path('stats/', views.stats, name='stats'),
 ]

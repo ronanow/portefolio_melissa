@@ -14,6 +14,16 @@ class Photo(models.Model):
 
     def __str__(self):
         return self.title
-from django.db import models
 
-# Create your models here.
+
+
+
+class Visit(models.Model):
+    ip = models.GenericIPAddressField()
+    path = models.CharField(max_length=500)
+    user_agent = models.TextField(blank=True)
+    referer = models.URLField(blank=True, null=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.ip} - {self.path} - {self.timestamp}"

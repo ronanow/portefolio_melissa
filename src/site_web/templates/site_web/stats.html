@@ -1,0 +1,33 @@
+<!-- monapp/templates/monapp/stats.html -->
+<!DOCTYPE html>
+<html>
+<head><title>Stats</title></head>
+<body>
+
+<h1>Statistiques du site</h1>
+<p>Total visites : <strong>{{ total }}</strong></p>
+
+<h2>Pages les plus visitées</h2>
+<ul>
+  {% for p in pages %}
+    <li>{{ p.path }} — {{ p.count }} visites</li>
+  {% endfor %}
+</ul>
+
+<h2>Dernières visites</h2>
+<table border="1" cellpadding="8">
+  <tr>
+    <th>Date</th><th>IP</th><th>Page</th><th>Navigateur</th>
+  </tr>
+  {% for v in recentes %}
+  <tr>
+    <td>{{ v.timestamp }}</td>
+    <td>{{ v.ip }}</td>
+    <td>{{ v.path }}</td>
+    <td>{{ v.user_agent }}</td>
+  </tr>
+  {% endfor %}
+</table>
+
+</body>
+</html>

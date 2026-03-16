@@ -115,3 +115,18 @@ def contact(request):
 
 
 
+
+from django.contrib.admin.views.decorators import staff_member_required
+from django.db.models import Count
+from .models import Visit
+
+@staff_member_required  # ← seul toi (superuser) peut voir cette page
+def stats(request):
+    context = {
+        'total': Visit.objects.count(),
+        'pages': Visit.objects.values('path')
+                    .annotate(count=Count('id'))
+                    .order_by('-count')[:10],
+        'recentes': Visit.objects.order_by('-timestamp')[:20],
+    }
+    return render(request, 'site_web/stats.html', context)
