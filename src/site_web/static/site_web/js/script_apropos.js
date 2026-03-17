@@ -21,7 +21,7 @@ function typeChar() {
     if (typingIndex < text.length) {
         typingElement.textContent += text.charAt(typingIndex);
         typingIndex++;
-        setTimeout(typeChar, 30);
+        setTimeout(typeChar, 1);
     }
 }
 

@@ -117,7 +117,7 @@ nav a{
 }
 
 .hero h3{
-    font-size:35px;
+    font-size:70px;
 }
 
 .about{
@@ -205,6 +205,16 @@ nav a{
         width:400px;
         font-size:20px;
     }
+
+    .hero{
+        padding-left:20px;
+        justify-content:center;
+        padding-top:120px; /* espace en haut */
+    }
+    .hero h3{
+    font-size:40px;
+    margin-top:100px;
+    }
 }
 
 @media (max-width:768px){
@@ -227,6 +237,8 @@ nav a{
     }
     .hero{
         padding-left:20px;
+        justify-content:center;
+        padding-top:80px; /* espace en haut */
     }
     .hero h1{
         font-size:50px;
@@ -246,5 +258,10 @@ nav a{
     .photo{
         width:100%;
         height:auto;
+    }
+
+    .hero h3{
+    font-size:40px;
+    margin-top:20px;
     }
 }
