@@ -61,3 +61,28 @@ window.addEventListener("scroll", function(){
 
     photo.style.transform = `scale(${scale})`;
 });
+
+/* activation son au scroll  */
+const video = document.getElementById("video-bg");
+
+let activated = false;
+
+window.addEventListener("scroll", () => {
+    if (!activated) {
+        video.muted = false;
+        video.volume = 0;
+        video.play();
+
+        let vol = 0;
+        const fade = setInterval(() => {
+            if (vol < 1) {
+                vol += 0.05;
+                video.volume = vol;
+            } else {
+                clearInterval(fade);
+            }
+        }, 100);
+
+        activated = true;
+    }
+});
