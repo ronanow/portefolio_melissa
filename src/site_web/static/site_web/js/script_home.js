@@ -106,23 +106,11 @@ function videoEffect() {
     // Essayez de jouer
     video.play().then(() => {
 
-        // Fade du son sur desktop
-        let vol = 0;
-        video.volume = 0;
-        video.muted = false;
+  // Reste muet : le son
+  // est géré par unlockSound()
+  video.muted = true;
 
-        const fade = setInterval(() => {
-            if (vol < 1) {
-                vol += 0.05;
-                video.volume = vol;
-            } else {
-                clearInterval(fade);
-            }
-        }, 100);
-
-    }).catch(() => {
-        console.log("Lecture bloquée par le navigateur");
-    });
+}).catch(() => {});
 
     // Boucle manuelle en JS si jamais loop HTML absent
     video.addEventListener("ended", () => {
@@ -186,3 +174,33 @@ const observer = new IntersectionObserver((entries) => {
 
 // Activation observer
 hiddenElements.forEach((el) => observer.observe(el));
+
+/////////////////////////////////////////////////////
+// ACTIVATION DU SON AU PREMIER CLIC
+/////////////////////////////////////////////////////
+
+document.addEventListener("click", function unlockSound() {
+    // Ne s'exécute qu'une seule fois
+    document.removeEventListener("click", unlockSound);
+
+    // Si la vidéo existe et est lancée
+    if (!video) return;
+
+    video.play().then(() => {
+        video.muted = false;
+
+        // Fade progressif du volume : 0 → 1
+        let vol = 0;
+        video.volume = 0;
+
+        const fade = setInterval(() => {
+            if (vol < 1) {
+                vol += 0.05;
+                video.volume = Math.min(vol, 1);
+            } else {
+                clearInterval(fade);
+            }
+        }, 100);
+
+    }).catch(() => {});
+}, { once: false });
