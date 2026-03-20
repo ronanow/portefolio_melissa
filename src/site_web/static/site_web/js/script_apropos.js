@@ -19,8 +19,8 @@ let typingIndex = 0;
 
 function typeChar() {
     if (typingIndex < text.length) {
-        typingElement.textContent += text.charAt(typingIndex);
-        typingIndex++;
+        typingElement.textContent += text.slice(typingIndex, typingIndex + 3); // 3 caractères à la fois
+        typingIndex += 3;
         setTimeout(typeChar, 1);
     }
 }

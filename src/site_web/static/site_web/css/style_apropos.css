@@ -27,6 +27,8 @@ body {
     line-height: 1.8;
     letter-spacing: 0.5px;
     color: white;
+    text-align: justify;
+    word-spacing: -1px;
 }
 
 #typing::after {

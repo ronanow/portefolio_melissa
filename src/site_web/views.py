@@ -44,7 +44,14 @@ Musique : @"""
 def video_pub(request):
     context = {
         'video_src': 'site_web/videos/court.mp4',
-        'comment': """<span class="titre">Note d’intention - Projet Parapluie Rouge</span> <span class="sous-titre">réalisation - écriture </span>"""
+        'comment': """<span class="titre">Note d’intention - Projet Parapluie Rouge</span> <span class="sous-titre">réalisation - écriture </span> \n
+                    Ce projet a été réalisé dans le cadre d'un travail universitaire à l'université Lumière Lyon 2.
+                     Il documente la violence verbale subie par Beverly, travailleuse du sexe, à travers des insultes qu'elle a réellement reçues.\n
+
+                    Des gros plans de bouches, des corps fragmentés, un montage construit sur le flicker et la surimpression. Chaque effet est pensé pour que le spectateur ressente l'impact des mots plutôt que de simplement les entendre. \n
+
+                    Ce projet me permet d'explorer le montage comme langage émotionnel, en utilisant le rythme et les effets visuels non pas pour embellir, mais pour percuter.
+        """
     }
     return render(request, 'site_web/video_templates.html', context)
 
@@ -71,7 +78,9 @@ def video_motion(request):
 def video_suze(request):
     context = {
         'video_src': 'site_web/videos/suze.mp4',
-        'comment': """<span class="titre">Montage.</span>"""
+        'comment': """<span class="titre">Montage.</span>\n
+                    <span class="sous-titre">Annotation en cours ...</span>\n
+                    """
     }
     return render(request, 'site_web/video_templates.html', context)
 

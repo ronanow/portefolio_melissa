@@ -133,7 +133,7 @@ function typeChar() {
         typingIndex++;
 
         // vitesse typing
-        typingTimeout = setTimeout(typeChar, 20);
+        typingTimeout = setTimeout(typeChar, 1);
     }
 }
 
@@ -176,31 +176,63 @@ const observer = new IntersectionObserver((entries) => {
 hiddenElements.forEach((el) => observer.observe(el));
 
 /////////////////////////////////////////////////////
-// ACTIVATION DU SON AU PREMIER CLIC
+// SON : UNLOCK AU CLIC + BOUTON MUTE
 /////////////////////////////////////////////////////
 
-document.addEventListener("click", function unlockSound() {
-    // Ne s'exécute qu'une seule fois
+const muteBtn = document.getElementById("mute-btn");
+let soundUnlocked = false;
+
+function fadeInSound() {
+    video.muted = false;
+    let vol = 0;
+    video.volume = 0;
+
+    const fade = setInterval(() => {
+        if (vol < 1) {
+            vol += 0.05;
+            video.volume = Math.min(vol, 1);
+        } else {
+            clearInterval(fade);
+        }
+    }, 100);
+}
+
+function updateMuteBtn() {
+    if (!muteBtn) return;
+    muteBtn.textContent = video.muted ? "🔇" : "🔊";
+}
+
+// Unlock au premier clic n'importe où sur la page
+document.addEventListener("click", function unlockSound(e) {
+    if (e.target.id === "mute-btn") return;
+
     document.removeEventListener("click", unlockSound);
 
-    // Si la vidéo existe et est lancée
-    if (!video) return;
+    if (!video || soundUnlocked) return;
+    soundUnlocked = true;
 
     video.play().then(() => {
-        video.muted = false;
-
-        // Fade progressif du volume : 0 → 1
-        let vol = 0;
-        video.volume = 0;
-
-        const fade = setInterval(() => {
-            if (vol < 1) {
-                vol += 0.05;
-                video.volume = Math.min(vol, 1);
-            } else {
-                clearInterval(fade);
-            }
-        }, 100);
-
+        fadeInSound();
+        updateMuteBtn();
     }).catch(() => {});
-}, { once: false });
+});
+
+// Bouton mute
+if (muteBtn) {
+    muteBtn.addEventListener("click", () => {
+        if (!video) return;
+
+        if (!soundUnlocked) {
+            // Premier clic sur le bouton = on unlock le son
+            soundUnlocked = true;
+            video.play().then(() => {
+                fadeInSound();
+                updateMuteBtn();
+            }).catch(() => {});
+        } else {
+            // Bascule mute/unmute normalement
+            video.muted = !video.muted;
+            updateMuteBtn();
+        }
+    });
+}
