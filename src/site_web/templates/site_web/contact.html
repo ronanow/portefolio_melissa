@@ -105,7 +105,7 @@
       });
 
       if (res.ok) {
-        showNotif('success', 'Message envoyé avec succès ! Nous vous répondrons très prochainement.');
+        showNotif('success', 'Message envoyé avec succès ! Merci...');
         form.reset();
       } else {
         const json = await res.json().catch(() => ({}));
