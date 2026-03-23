@@ -55,11 +55,18 @@ const previewPhotos=[
 "/static/site_web/images/event2.jpg",
 "/static/site_web/images/event3.jpg",
 "/static/site_web/images/event4.jpg",
+"/static/site_web/images/event5.jpg",
+"/static/site_web/images/event6.jpg",
+"/static/site_web/images/event7.jpg",
 "/static/site_web/images/event8.jpg",
 "/static/site_web/images/event9.jpg",
-"/static/site_web/images/event5.jpg",
-"/static/site_web/images/event7.jpg",
-"/static/site_web/images/event10.jpg"
+"/static/site_web/images/event10.jpg",
+"/static/site_web/images/event12.jpg",
+"/static/site_web/images/event13.jpg",
+"/static/site_web/images/event14.jpg",
+"/static/site_web/images/event15.jpg",
+"/static/site_web/images/event16.jpg",
+"/static/site_web/images/event17.jpg"
 
 ]
 

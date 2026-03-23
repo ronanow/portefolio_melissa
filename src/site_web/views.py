@@ -93,11 +93,18 @@ def photos_event(request):
             'site_web/images/event2.jpg',
             'site_web/images/event3.jpg',
             'site_web/images/event4.jpg',
+            'site_web/images/event5.jpg',
+            'site_web/images/event6.jpg',
+            'site_web/images/event7.jpg',
             'site_web/images/event8.jpg',
             'site_web/images/event9.jpg',
-            'site_web/images/event5.jpg',
-            'site_web/images/event7.jpg',
             'site_web/images/event10.jpg',
+            'site_web/images/event12.jpg',
+            'site_web/images/event13.jpg',
+            'site_web/images/event14.jpg',
+            'site_web/images/event15.jpg',
+            'site_web/images/event16.jpg',
+            'site_web/images/event17.jpg',
         ]
     }
     return render(request, 'site_web/photos_templates.html', context)
@@ -110,10 +117,17 @@ def galerie(request):
             {'src': 'site_web/images/event3.jpg',  'title': 'Photo 3'},
             {'src': 'site_web/images/event4.jpg',  'title': 'Photo 4'},
             {'src': 'site_web/images/event5.jpg',  'title': 'Photo 5'},
-            {'src': 'site_web/images/event7.jpg',  'title': 'Photo 6'},
-            {'src': 'site_web/images/event8.jpg',  'title': 'Photo 7'},
-            {'src': 'site_web/images/event9.jpg',  'title': 'Photo 8'},
-            {'src': 'site_web/images/event10.jpg', 'title': 'Photo 9'},
+            {'src': 'site_web/images/event6.jpg',  'title': 'Photo 6'},
+            {'src': 'site_web/images/event7.jpg',  'title': 'Photo 7'},
+            {'src': 'site_web/images/event8.jpg',  'title': 'Photo 8'},
+            {'src': 'site_web/images/event9.jpg', 'title': 'Photo 9'},
+            {'src': 'site_web/images/event10.jpg', 'title': 'Photo 10'},
+            {'src': 'site_web/images/event12.jpg', 'title': 'Photo 11'},
+            {'src': 'site_web/images/event13.jpg', 'title': 'Photo 12'},
+            {'src': 'site_web/images/event14.jpg', 'title': 'Photo 13'},
+            {'src': 'site_web/images/event15.jpg', 'title': 'Photo 14'},
+            {'src': 'site_web/images/event16.jpg', 'title': 'Photo 15'},
+            {'src': 'site_web/images/event17.jpg', 'title': 'Photo 16'},
         ]
     }
     return render(request, 'site_web/carousel_courbe.html', context)
