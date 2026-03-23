@@ -12,16 +12,29 @@ window.addEventListener("scroll", function(){
 });
 
 /* TYPING EFFECT DYNAMIQUE */
-const text = "Tout a commencé sur Movie Maker. J'avais douze ans, et je passais des heures à monter des vidéos de vacances en famille, à déplacer des plans, tester des coupes, recommencer. Ce qui me fascinait, ce n'était pas simplement « faire une vidéo », mais découvrir qu'en assemblant des images dans un certain ordre, on pouvait raconter quelque chose. Qu'on pouvait faire ressentir. C'est là que tout a pris sens : raconter des histoires à partir d'images, c'est ce qui me fait vibrer.\nCette envie m'a menée à l'université Lyon 2, où j'ai obtenu un Master en réalisation et production documentaire. J'y ai appris à penser le récit, à comprendre le langage cinématographique, à saisir ce qui se joue derrière chaque plan, chaque coupe, chaque choix de cadre. Le documentaire s'est imposé comme une évidence : j'aime utiliser le réel comme matériau de création pour construire un récit et exprimer un point de vue, une singularité.\nMais ce qui m'a attirée vers le cinéma dès le départ, c'était le montage. Alors j'y suis revenue. C'est là que je me sens le plus à ma place : structurer le récit, jouer avec le rythme, donner une intention à chaque coupe. Mon travail comme monteuse-cadreuse m'a permis d'affiner mon regard sur Premiere Pro et After Effects, et de développer le motion design comme un langage à part entière pour animer les formes et enrichir la narration.\nLa photographie est venue compléter ce parcours. Là où le montage construit le sens dans le temps, la photo me pousse à saisir l'instant précis qui se suffit à lui-même, à observer et rendre visible ce qui fait qu'une image devient forte.\nAujourd'hui, je continue d'explorer de nouveaux outils et langages visuels. Parce qu'apprendre à raconter une histoire, c'est un chemin qui ne s'arrête jamais.";
+const text = `Tout a commencé à douze ans, sur Movie Maker. Je passais des heures à monter des vidéos de vacances, à déplacer les plans, essayer des coupes, recommencer encore et encore.
+Très vite, j’ai compris que ce qui me plaisait n’était pas seulement de faire des vidéos, mais de raconter à travers les images. J’ai découvert qu’en les assemblant d’une certaine manière, on pouvait créer du sens, transmettre une émotion et faire émerger un regard.
+C’est là que j’ai compris que ce qui m’animait profondément, c’était raconter des histoires par l’image.\n
+Cette envie m’a conduite à l’Université Lumière Lyon 2, où j’ai obtenu un Master en réalisation et production documentaire. J’y ai appris à construire un récit, à maîtriser le langage cinématographique et à comprendre ce qui se joue dans chaque plan, chaque coupe, chaque cadrage.\n
+Le documentaire s’est imposé comme une évidence. J’aime m’appuyer sur le réel pour construire des histoires qui portent un regard particulier.\n
+Mais ce qui m’a attirée vers le cinéma dès le départ, c’était le montage. J’y suis revenue naturellement. C’est là que je me sens le plus à ma place, à structurer un récit, travailler le rythme et donner du sens à chaque coupe.\n
+Mon parcours de monteuse-cadreuse m’a permis d’affiner ma maîtrise de Premiere Pro et d’explorer avec After Effects le motion design comme un langage à part entière, capable d’animer les formes et d’enrichir la narration.\n
+La photographie est venue compléter mon parcours. Là où le montage déroule le récit dans le temps, la photo me pousse à saisir l’instant.\n
+Aujourd’hui, je continue d’explorer de nouveaux outils et de nouveaux langages visuels. Pour moi, raconter une histoire reste une recherche en mouvement, un apprentissage sans fin.`;
 
 const typingElement = document.getElementById("typing");
 let typingIndex = 0;
 
 function typeChar() {
     if (typingIndex < text.length) {
-        typingElement.textContent += text.slice(typingIndex, typingIndex + 3); // 3 caractères à la fois
-        typingIndex += 3;
-        setTimeout(typeChar, 1);
+        // Si on trouve un saut de ligne, on met un <br>
+        if (text[typingIndex] === "\n") {
+            typingElement.innerHTML += "<br>";
+        } else {
+            typingElement.innerHTML += text[typingIndex];
+        }
+        typingIndex++;
+        setTimeout(typeChar, 1); // vitesse de frappe
     }
 }
 
