@@ -1,7 +1,7 @@
 /* GENERAL */
 body{
     margin:0;
-    font-family:'DM Sans', sans-serif
+    font-family:'DM Sans', sans-serif;
     background:#e5e5e5;
     color:white;
     overflow-x:hidden;
@@ -15,14 +15,14 @@ text-transform:uppercase;
 }
 
 /* VIDEO WRAPPER */
-.video-wrapper{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100vw;
-    height:100vh;
-    overflow:hidden;
-    z-index:-2;
+.video-wrapper video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
 }
 
 .video-wrapper video{
