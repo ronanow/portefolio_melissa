@@ -29,7 +29,7 @@ SECRET_KEY = config('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['portefolio-melissa.onrender.com']
 
 
 # Application definition
@@ -119,8 +119,7 @@ EMAIL_BACKEND = os.environ.get("DJANGO_EMAIL_BACKEND",
 # Pour envoi réel via SMTP (ex : Gmail)
 
 
-SECRET_KEY = config("DJANGO_SECRET_KEY")
-DEBUG = config("DEBUG", default=True, cast=bool)
+
 
 EMAIL_BACKEND = config("EMAIL_BACKEND", default="django.core.mail.backends.console.EmailBackend")
 EMAIL_HOST = config("EMAIL_HOST", default="smtp.gmail.com")
@@ -148,3 +147,18 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# =============================
+# SÉCURITÉ HTTPS (production)
+# =============================
+#SECURE_SSL_REDIRECT = True          # Redirige HTTP → HTTPS automatiquement problematique sur render
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https') # remplace ligne de dessus sur render
+SECURE_SSL_REDIRECT = False  # Render s'en charge déjà
+SECURE_HSTS_SECONDS = 31536000      # Force HTTPS pendant 1 an (header HSTS)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+SESSION_COOKIE_SECURE = True        # Cookie de session uniquement via HTTPS
+CSRF_COOKIE_SECURE = True           # Cookie CSRF uniquement via HTTPS
+SECURE_CONTENT_TYPE_NOSNIFF = True  # Empêche le MIME sniffing
+X_FRAME_OPTIONS = 'DENY'           # Anti-clickjacking (déjà géré par ton middleware)
