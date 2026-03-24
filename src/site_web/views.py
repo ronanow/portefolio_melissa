@@ -99,12 +99,14 @@ def photos_event(request):
             'site_web/images/event8.jpg',
             'site_web/images/event9.jpg',
             'site_web/images/event10.jpg',
+            'site_web/images/event11.jpg',
             'site_web/images/event12.jpg',
             'site_web/images/event13.jpg',
             'site_web/images/event14.jpg',
             'site_web/images/event15.jpg',
             'site_web/images/event16.jpg',
             'site_web/images/event17.jpg',
+            'site_web/images/event18.jpg',
         ]
     }
     return render(request, 'site_web/photos_templates.html', context)
@@ -122,12 +124,14 @@ def galerie(request):
             {'src': 'site_web/images/event8.jpg',  'title': 'Photo 8'},
             {'src': 'site_web/images/event9.jpg', 'title': 'Photo 9'},
             {'src': 'site_web/images/event10.jpg', 'title': 'Photo 10'},
-            {'src': 'site_web/images/event12.jpg', 'title': 'Photo 11'},
-            {'src': 'site_web/images/event13.jpg', 'title': 'Photo 12'},
-            {'src': 'site_web/images/event14.jpg', 'title': 'Photo 13'},
-            {'src': 'site_web/images/event15.jpg', 'title': 'Photo 14'},
-            {'src': 'site_web/images/event16.jpg', 'title': 'Photo 15'},
-            {'src': 'site_web/images/event17.jpg', 'title': 'Photo 16'},
+            {'src': 'site_web/images/event11.jpg', 'title': 'Photo 11'},
+            {'src': 'site_web/images/event12.jpg', 'title': 'Photo 12'},
+            {'src': 'site_web/images/event13.jpg', 'title': 'Photo 13'},
+            {'src': 'site_web/images/event14.jpg', 'title': 'Photo 14'},
+            {'src': 'site_web/images/event15.jpg', 'title': 'Photo 15'},
+            {'src': 'site_web/images/event16.jpg', 'title': 'Photo 16'},
+            {'src': 'site_web/images/event17.jpg', 'title': 'Photo 17'},
+            {'src': 'site_web/images/event18.jpg', 'title': 'Photo 18'},
         ]
     }
     return render(request, 'site_web/carousel_courbe.html', context)

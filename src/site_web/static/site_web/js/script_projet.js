@@ -61,12 +61,14 @@ const previewPhotos=[
 "/static/site_web/images/event8.jpg",
 "/static/site_web/images/event9.jpg",
 "/static/site_web/images/event10.jpg",
+"/static/site_web/images/event11.jpg",
 "/static/site_web/images/event12.jpg",
 "/static/site_web/images/event13.jpg",
 "/static/site_web/images/event14.jpg",
 "/static/site_web/images/event15.jpg",
 "/static/site_web/images/event16.jpg",
-"/static/site_web/images/event17.jpg"
+"/static/site_web/images/event17.jpg",
+"/static/site_web/images/event18.jpg"
 
 ]
 
