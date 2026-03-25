@@ -87,7 +87,7 @@ h1{font-size:clamp(1.3rem,3.5vw,2rem);font-weight:300;letter-spacing:.3em;text-t
   position:fixed;inset:0;z-index:9999;
   background:rgba(0,0,0,0);
   align-items:center;justify-content:center;
-  padding:1rem;cursor:default;
+  padding:2rem;cursor:default;
 }
 .lb.on{display:flex;animation:lbFadeIn .3s ease forwards}
 @keyframes lbFadeIn{
@@ -114,8 +114,7 @@ h1{font-size:clamp(1.3rem,3.5vw,2rem);font-weight:300;letter-spacing:.3em;text-t
   to{opacity:1;transform:scale(1) translateY(0)}
 }
 .lb-inner img{
-  width:100%;max-height:70vh;
-  max-height: 70dvh;
+  width:100%;max-height:83vh;
   object-fit:contain;border-radius:10px;display:block;
   box-shadow:0 40px 100px rgba(0,0,0,.6);
 }
@@ -149,18 +148,6 @@ h1{font-size:clamp(1.3rem,3.5vw,2rem);font-weight:300;letter-spacing:.3em;text-t
 @media(max-width:700px){
   .lb-nav.l{left:4px}
   .lb-nav.r{right:4px}
-}
-@media (max-width: 700px) {
-  .lb-inner {
-    width: 100%;
-    max-width: 100%;
-  }
-  .lb-nav.l { left: 4px; }
-  .lb-nav.r { right: 4px; }
-  .lb-x {
-    top: 4px;
-    right: 4px;
-  }
 }
 </style>
 </head>
