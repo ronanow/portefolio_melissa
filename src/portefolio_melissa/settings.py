@@ -29,7 +29,7 @@ SECRET_KEY = config('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
-
+site='portefolio-melissa.onrender.com'
 ALLOWED_HOSTS = ['portefolio-melissa.onrender.com']
 
 
